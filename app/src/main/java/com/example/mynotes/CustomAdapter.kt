@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 class CustomAdapter(private val notes: MutableList<Note>):
     RecyclerView.Adapter<CustomAdapter.UserViewHolder>() {
 
-    private var onClothingClickListener: OnClothingClickListener? = null
+    private var onClickListener: OnClickListener? = null
 
-    interface OnClothingClickListener {
-        fun onClothingClick(note: Note, position: Int)
+    interface OnClickListener {
+        fun onClick(note: Note, position: Int)
     }
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val numberTV = itemView.findViewById(R.id.noteNumberTV) as TextView
@@ -33,18 +33,18 @@ class CustomAdapter(private val notes: MutableList<Note>):
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val note = notes[position]
-        holder.numberTV.text = note.data.toString()
+        holder.numberTV.text = note.data
         holder.textTV.text = note.text
         holder.completedCB.setChecked(note.complete)
-        holder.dataTV.text = note.data.toString()
+        holder.dataTV.text = note.data
         holder.itemView.setOnClickListener {
-            onClothingClickListener?.onClothingClick(note, position)
+            onClickListener?.onClick(note, position)
 
         }
     }
 
-    fun setOnClothingClickListener(onClothingClickListener: OnClothingClickListener) {
-        this.onClothingClickListener = onClothingClickListener
+    fun setOnClickListener(onClothingClickListener: OnClickListener) {
+        this.onClickListener = onClothingClickListener
     }
 
 }
