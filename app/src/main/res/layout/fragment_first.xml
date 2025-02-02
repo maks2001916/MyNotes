@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="4dp"
-    tools:context=".FirstFragment">
+    tools:context=".FirstFragment"
+    android:orientation="vertical">
 
-    <TextView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarTB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/enterTextOfNoteET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_text_of_note"
+        android:layout_margin="10dp" />
+
+    <Button
+        android:id="@+id/saveBTN"
+        android:text="@string/save"
+        android:backgroundTint="@color/green"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_margin="4dp"
+        tools:listitem="@layout/list_item"/>
 
-</FrameLayout>
+
+</LinearLayout>

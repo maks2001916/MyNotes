@@ -4,4 +4,6 @@
     <string name="number">№</string>
     <string name="note">Заметка</string>
     <string name="date_and_time">Дата и время</string>
+    <string name="enter_text_of_note">Введите текст заметки</string>
+    <string name="save">Сохранить</string>
 </resources>
