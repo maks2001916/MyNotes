@@ -4,6 +4,9 @@ import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -39,6 +42,7 @@ class FirstFragment : Fragment() {
         var saveBTN = view.findViewById(R.id.saveBTN) as Button
         var listRV = view.findViewById(R.id.listRV) as RecyclerView
 
+        setHasOptionsMenu(true)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbarTB)
 
 
@@ -69,6 +73,19 @@ class FirstFragment : Fragment() {
                 // Если нужно сохранить изменения в БД или другом хранилище
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu) // Инфлейтим меню
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.exit -> activity?.finishAffinity() // Обработчик нажатия на пункт меню
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
     }
 
 }
