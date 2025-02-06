@@ -26,6 +26,11 @@ class FirstFragment : Fragment() {
     private lateinit var adapter: CustomAdapter
     private var noteIdCounter = 1
 
+    private lateinit var toolbarTB: Toolbar
+    private lateinit var enterTextET: EditText
+    private lateinit var saveBTN: Button
+    private lateinit var listRV: RecyclerView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,10 +43,10 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         onFragmentDataListener = requireActivity() as OnFragmentDataListener
-        val toolbarTB: Toolbar = view.findViewById(R.id.toolbarTB)
-        val enterTextET: EditText = view.findViewById(R.id.enterTextOfNoteET)
-        val saveBTN: Button = view.findViewById(R.id.saveBTN)
-        val listRV: RecyclerView = view.findViewById(R.id.listRV)
+        toolbarTB = view.findViewById(R.id.toolbarTB)
+        enterTextET = view.findViewById(R.id.enterTextOfNoteET)
+        saveBTN = view.findViewById(R.id.saveBTN)
+        listRV = view.findViewById(R.id.listRV)
 
         setHasOptionsMenu(true)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbarTB)
@@ -72,6 +77,12 @@ class FirstFragment : Fragment() {
                 // Обновляем данные в списке
                 notes.find { it.id == note.id }?.isChecked = isChecked
                 // Если нужно сохранить изменения в БД или другом хранилище
+            }
+        })
+
+        adapter.setOnItemClickListener(object : CustomAdapter.OnItemClickListener {
+            override fun onItemClick(note: Note, position: Int) {
+                onFragmentDataListener.onData(note.text)
             }
         })
 

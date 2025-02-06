@@ -13,23 +13,25 @@ class NoteEditFragment : Fragment() {
 
     private lateinit var toolbarTB: Toolbar
     private lateinit var enterTextET: EditText
-    private lateinit var saveBTN: Button
+    private lateinit var editBTN: Button
+    private var note: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_note_edit, container, false)
 
-            return inflater.inflate(R.layout.fragment_note_edit, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+        note = arguments?.getString("note")
         toolbarTB = view.findViewById(R.id.toolbarEditTB)
         enterTextET = view.findViewById(R.id.editNoteET)
-        saveBTN = view.findViewById(R.id.saveBTN)
+        editBTN = view.findViewById(R.id.editBTN)
+        enterTextET.setText(note)
+        editBTN.setOnClickListener {
+            val value = enterTextET.text
+        }
 
+        return view
     }
 
 }
