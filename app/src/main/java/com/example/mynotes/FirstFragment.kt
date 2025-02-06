@@ -21,6 +21,7 @@ import java.util.Date
 class FirstFragment : Fragment() {
 
     //private lateinit var binding: ActivityMainBinding
+    private lateinit var onFragmentDataListener: OnFragmentDataListener
     private var notes =  mutableListOf<Note>()
     private lateinit var adapter: CustomAdapter
     private var noteIdCounter = 1
@@ -29,7 +30,6 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_first, container, false)
     }
 
@@ -37,10 +37,11 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var toolbarTB = view.findViewById(R.id.toolbarTB) as Toolbar
-        var enterTextET = view.findViewById(R.id.enterTextOfNoteET) as EditText
-        var saveBTN = view.findViewById(R.id.saveBTN) as Button
-        var listRV = view.findViewById(R.id.listRV) as RecyclerView
+        onFragmentDataListener = requireActivity() as OnFragmentDataListener
+        val toolbarTB: Toolbar = view.findViewById(R.id.toolbarTB)
+        val enterTextET: EditText = view.findViewById(R.id.enterTextOfNoteET)
+        val saveBTN: Button = view.findViewById(R.id.saveBTN)
+        val listRV: RecyclerView = view.findViewById(R.id.listRV)
 
         setHasOptionsMenu(true)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbarTB)
@@ -73,6 +74,7 @@ class FirstFragment : Fragment() {
                 // Если нужно сохранить изменения в БД или другом хранилище
             }
         })
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

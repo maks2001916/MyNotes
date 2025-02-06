@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton.OnCheckedChangeListener
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -14,11 +13,16 @@ import java.util.Locale
 class CustomAdapter(private val notes: MutableList<Note>):
     RecyclerView.Adapter<CustomAdapter.UserViewHolder>() {
 
+    interface OnItemClickListener {
+        fun onItemClick(note: Note, position: Int)
+    }
+
     interface OnCheckChangedListener {
         fun onCheckChanged(note: Note, isChecked: Boolean)
     }
 
     private var checkChangedListener: OnCheckChangedListener? = null
+    private var itemClickListener: OnItemClickListener? = null
 
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val numberTV: TextView = itemView.findViewById(R.id.noteNumberTV)
@@ -29,6 +33,10 @@ class CustomAdapter(private val notes: MutableList<Note>):
 
     fun setOnCheckChangedListener(listener: OnCheckChangedListener) {
         this.checkChangedListener = listener
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.itemClickListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
@@ -50,6 +58,13 @@ class CustomAdapter(private val notes: MutableList<Note>):
         holder.completedCB.setOnCheckedChangeListener { _, isChecked ->
             note.isChecked = isChecked
             checkChangedListener?.onCheckChanged(note, isChecked)
+        }
+
+        holder.itemView.setOnClickListener {
+            val actualPosition = holder.adapterPosition
+            if (actualPosition != RecyclerView.NO_POSITION) {
+                itemClickListener?.onItemClick(notes[actualPosition], actualPosition)
+            }
         }
     }
 
